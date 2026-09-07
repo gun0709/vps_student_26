@@ -5,11 +5,11 @@ import sys
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 
 # Импортируем симулятор генерации логов
-try:
-    from vps_log_generator import generate_mock_ssh_logs, generate_mock_nginx_logs
-except ImportError:
-    print("[!] Не найден файл vps_log_generator.py. Убедитесь, что он лежит в той же папке!")
-    sys.exit(1)
+# try:
+#     from vps_log_generator import generate_mock_ssh_logs, generate_mock_nginx_logs
+# except ImportError:
+#     print("[!] Не найден файл vps_log_generator.py. Убедитесь, что он лежит в той же папке!")
+#     sys.exit(1)
 
 # Импортируем студенческий модуль аналитики
 try:
@@ -25,7 +25,9 @@ def run_pipeline():
 
     # Шаг 1: Симуляция/Генерация данных на сервере (Уже реализовано)
     print("[1] Симуляция: Создаем искусственные логи на сервере...")
-    mock_ssh_lines = generate_mock_ssh_logs(num_lines=100)
+    ssh_log_path = "/home/student/logs/auth.log"
+    with open(ssh_log_path, "r") as f:
+        ssh_logs = f.readlines()
     mock_nginx_lines = generate_mock_nginx_logs(num_lines=50)
     
     ssh_log_path = "mock_auth.log"
